@@ -1,0 +1,20 @@
+@use 'helpers/index' as *;
+
+:root {
+    --color-light: #ffffff;
+    --color-dark: #212121;
+
+    --color-light-text: #ececf1;
+    --color-dark-text: #353740;
+
+    --ring: #737373;
+
+    --border-radius: 8px;
+    --border-radius-lg: 12px;
+
+    --transition-duration: 0.2s;
+    --transition-duration-fastest: 0.1s;
+
+    --container-padding-x: 16px;
+    --container-width: #{rem(800)};
+}
