@@ -1,3 +1,8 @@
 export { HomeComponent } from './home-component'
 export { ThemeProvider } from './theme-provider'
 export { ThemeSwitch } from './theme-switch'
+export { HomeTitle } from './home-title'
+export { CheckboxGroup } from './checkbox-group'
+export { PasswordInput } from './password-input'
+export { PasswordProgressbar } from './password-progressbar'
+export { ButtonsGroup } from './buttons-group'

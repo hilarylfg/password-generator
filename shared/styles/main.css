@@ -434,8 +434,110 @@ svg.lucide {
   display: none;
 }
 
+.progress-ui {
+  position: relative;
+  height: 0.5rem;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 15px;
+  background: var(--bg-primary);
+}
+.progress-ui-indicator {
+  height: 100%;
+  width: 100%;
+  flex: 1 1 0;
+  background-color: var(--accent-primary);
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.checkbox-ui {
+  height: 1.5rem;
+  width: 1.5rem;
+  background-color: var(--ring);
+  border: none;
+  border-radius: 0.5rem;
+  display: flex;
+  padding: 0;
+}
+.checkbox-ui:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--accent-primary);
+}
+.checkbox-ui:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.checkbox-ui[data-state=checked] {
+  background-color: var(--accent-primary);
+  color: var(--bg-primary);
+}
+.checkbox-ui__indicator {
+  display: flex;
+  align-items: center;
+}
+.checkbox-ui span {
+  display: flex;
+  margin-inline: auto;
+}
+.checkbox-ui svg {
+  fill: none;
+}
+
+.range-slider-ui {
+  position: relative;
+  display: flex;
+  width: 100%;
+  margin-inline: auto;
+  touch-action: none;
+  user-select: none;
+  margin-bottom: 1.5rem;
+  align-items: center;
+}
+.range-slider-ui-track {
+  position: relative;
+  height: 0.25rem;
+  width: 100%;
+  flex-grow: 1;
+  overflow: hidden;
+  border-radius: 15px;
+  background: var(--ring);
+}
+.range-slider-ui-range {
+  position: absolute;
+  height: 100%;
+  background: var(--accent-primary);
+}
+.range-slider-ui-thumb {
+  display: block;
+  height: 1rem;
+  width: 1rem;
+  border-radius: 15px;
+  border: 1px solid var(--ring);
+  background-color: var(--color-light);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  transition: background-color 0.2s, border-color 0.2s;
+}
+.range-slider-ui-thumb:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--ring);
+}
+.range-slider-ui-thumb:disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+.range-slider-ui-value {
+  position: absolute;
+  text-align: center;
+  top: 10px;
+  font-size: 0.875rem;
+}
+
 .home-page {
   display: flex;
+  flex-direction: column;
+  gap: 1rem;
   height: 100dvh;
   align-items: center;
   justify-content: center;
