@@ -1,10 +1,16 @@
-import { Button } from '@/shared/components'
+'use client'
 
-export function ButtonsGroup() {
+import { Button, ButtonCopy } from '@/shared/components'
+
+interface Props {
+	onClick: () => void
+}
+
+export function ButtonsGroup({ onClick }: Props) {
 	return (
-		<div>
-			<Button>Generate</Button>
-			<Button>Copy</Button>
+		<div className='buttons-group'>
+			<Button>Сгенерировать</Button>
+			<ButtonCopy onClick={onClick} />
 		</div>
 	)
 }
