@@ -1,3 +1,3 @@
 export function HomeTitle() {
-	return <div>Home Title</div>
+	return <div className='home-title'>Генератор паролей</div>
 }
