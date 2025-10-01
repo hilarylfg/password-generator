@@ -2,20 +2,14 @@
 
 import { ChangeEvent } from 'react'
 
-import { Input } from '@/shared/components'
+import { DecryptedText } from '@/shared/components'
 
 interface Props {
 	value: string
-	onChange: (event: ChangeEvent<HTMLInputElement>) => void
 }
 
-export function PasswordInput({ value, onChange }: Props) {
+export function PasswordInput({ value }: Props) {
 	return (
-		<Input
-			className='password-input'
-			value={value}
-			onChange={onChange}
-			placeholder='Сгенерированный пароль'
-		/>
+		<DecryptedText text={value} animateOn='view' revealDirection='center' />
 	)
 }

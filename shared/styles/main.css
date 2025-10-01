@@ -455,7 +455,7 @@ svg.lucide {
 .checkbox-ui {
   height: 1.5rem;
   width: 1.5rem;
-  background-color: var(--ring);
+  background-color: var(--bg-primary);
   border: none;
   border-radius: 0.3rem;
   display: flex;

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import {
 	ButtonsGroup,
@@ -10,6 +10,7 @@ import {
 	PasswordProgressbar
 } from '@/shared/components'
 import { useCopyToClipboard } from '@/shared/hooks'
+import { usePasswordGenerator } from '@/shared/hooks/use-password-generator'
 import type { CheckboxOptionKey, CheckboxValues } from '@/shared/types'
 
 const initialCheckboxValues: CheckboxValues = {
@@ -22,7 +23,7 @@ const initialCheckboxValues: CheckboxValues = {
 }
 
 export function HomeComponent() {
-	const { inputValue, handleInputChange, copyToClipboard } =
+	const { inputValue, setInputValue, handleInputChange, copyToClipboard } =
 		useCopyToClipboard()
 
 	const [checkboxOptions, setCheckboxOptions] = useState<CheckboxValues>(
@@ -36,6 +37,12 @@ export function HomeComponent() {
 		}))
 	}
 
+	const { password, generatePassword } = usePasswordGenerator()
+
+	useEffect(() => {
+		setInputValue(password)
+	}, [password, setInputValue])
+
 	return (
 		<div className='home-page'>
 			<HomeTitle />
@@ -44,8 +51,11 @@ export function HomeComponent() {
 				onChange={handleCheckboxChange}
 			/>
 			<PasswordProgressbar />
-			<PasswordInput value={inputValue} onChange={handleInputChange} />
-			<ButtonsGroup onClick={() => copyToClipboard(inputValue)} />
+			<PasswordInput value={inputValue} />
+			<ButtonsGroup
+				onCopy={() => copyToClipboard(inputValue)}
+				onGenerate={() => generatePassword(checkboxOptions)}
+			/>
 		</div>
 	)
 }

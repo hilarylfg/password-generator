@@ -3,14 +3,15 @@
 import { Button, ButtonCopy } from '@/shared/components'
 
 interface Props {
-	onClick: () => void
+	onCopy: () => void
+	onGenerate: () => void
 }
 
-export function ButtonsGroup({ onClick }: Props) {
+export function ButtonsGroup({ onCopy, onGenerate }: Props) {
 	return (
 		<div className='buttons-group'>
-			<Button>Сгенерировать</Button>
-			<ButtonCopy onClick={onClick} />
+			<Button onClick={onGenerate}>Сгенерировать</Button>
+			<ButtonCopy onClick={onCopy} />
 		</div>
 	)
 }
