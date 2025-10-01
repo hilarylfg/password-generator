@@ -4,7 +4,17 @@ import string
 from algoritm.exceptions import LargeLenghtError, SmallLenghtError
 
 
-def create_password(length=12, use_special_chars=True, use_numbers=True, use_uppercase=True, use_lowercase=True):
+def create_password(
+        length=12,
+        use_special_chars=True,
+        use_numbers=True,
+        use_uppercase=True,
+        use_lowercase=True,
+        use_space=True,
+        unique_sim=False
+):
+    """Генерация пароля."""
+
     characters = ''
     if length > 32:
         raise LargeLenghtError()
@@ -19,9 +29,13 @@ def create_password(length=12, use_special_chars=True, use_numbers=True, use_upp
             characters += string.punctuation
         if use_numbers:
             characters += string.digits
-
-    password = ''.join(random.choice(characters) for _ in range(length))
+        if use_space:
+            characters += ' '
+    if unique_sim:
+        password = ''.join(random.sample(characters, length))
+    else:
+        password = ''.join(random.choice(characters) for _ in range(length))
     return password
 
 if __name__ == "__main__":
-    print("Generated Password:", create_password(5))
+    print("Generated Password:", create_password(15))
