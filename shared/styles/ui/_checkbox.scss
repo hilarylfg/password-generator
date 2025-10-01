@@ -1,40 +1,28 @@
 @use '../helpers/index' as *;
 
 .checkbox-ui {
-    height: rem(24);
-    width: rem(24);
-    background-color: var(--ring);
-    border: none;
-    border-radius: rem(8);
+    height: 18px;
+    width: 18px;
+    flex-shrink: 0;
+    border: 2px solid #007bff;
+    border-radius: 4px;
     display: flex;
-    padding: 0;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    transition: background-color 0.2s, border-color 0.2s;
+
+    &[data-state='checked'] {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
 
     &:focus-visible {
-        outline: none;
-        box-shadow: 0 0 0 2px var(--accent-primary);
-    }
-
-    &:disabled {
-        cursor: not-allowed;
-        opacity: 0.5;
-    }
-
-    &[data-state="checked"] {
-        background-color: var(--accent-primary);
-        color: var(--bg-primary);
+        outline: 2px solid #007bff;
+        outline-offset: 2px;
     }
 
     &__indicator {
-        display: flex;
-        align-items: center;
-    }
-
-    span {
-        display: flex;
-        margin-inline: auto;
-    }
-
-    svg {
-        fill: none;
+        color: white;
     }
 }

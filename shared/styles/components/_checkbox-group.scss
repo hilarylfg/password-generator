@@ -1,0 +1,55 @@
+@use '../helpers/index' as *;
+
+.checkbox-ui {
+  height: rem(20);
+  width: rem(20);
+  border: 1px solid #d4d4d4;
+  border-radius: 0.3rem;
+
+  transition:
+          background-color 0.2s ease-in-out,
+          border-color 0.2s ease-in-out;
+
+  &[data-state='checked'] {
+    background-color: #3b82f6;
+    border-color: #3b82f6;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #60a5fa;
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  &__indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.checkbox-group-ui {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem 1.5rem;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+  }
+
+  &__label {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+}
