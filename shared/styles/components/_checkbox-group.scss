@@ -1,0 +1,23 @@
+@use '../helpers/index' as *;
+
+.checkbox-group-ui {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 1rem 1.5rem;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, auto);
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+  }
+
+  &__label {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+}

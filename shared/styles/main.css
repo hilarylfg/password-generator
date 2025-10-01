@@ -457,7 +457,7 @@ svg.lucide {
   width: 1.5rem;
   background-color: var(--ring);
   border: none;
-  border-radius: 0.5rem;
+  border-radius: 0.3rem;
   display: flex;
   padding: 0;
 }
@@ -630,6 +630,27 @@ svg.lucide {
 }
 .theme-switch input:checked + .slider:active::before {
   transform: scale(0.95) translateX(28px);
+}
+
+.checkbox-group-ui {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 1rem 1.5rem;
+}
+@media (min-width: 768px) {
+  .checkbox-group-ui {
+    grid-template-columns: repeat(3, auto);
+  }
+}
+.checkbox-group-ui__item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+}
+.checkbox-group-ui__label {
+  font-size: 0.875rem;
+  font-weight: 500;
 }
 
 .password-input {
