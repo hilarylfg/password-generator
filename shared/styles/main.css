@@ -453,27 +453,36 @@ svg.lucide {
 }
 
 .checkbox-ui {
-  height: 18px;
-  width: 18px;
-  flex-shrink: 0;
-  border: 2px solid #007bff;
-  border-radius: 4px;
+  height: 1.5rem;
+  width: 1.5rem;
+  background-color: var(--ring);
+  border: none;
+  border-radius: 0.5rem;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #fff;
-  transition: background-color 0.2s, border-color 0.2s;
-}
-.checkbox-ui[data-state=checked] {
-  background-color: #007bff;
-  border-color: #007bff;
+  padding: 0;
 }
 .checkbox-ui:focus-visible {
-  outline: 2px solid #007bff;
-  outline-offset: 2px;
+  outline: none;
+  box-shadow: 0 0 0 2px var(--accent-primary);
+}
+.checkbox-ui:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.checkbox-ui[data-state=checked] {
+  background-color: var(--accent-primary);
+  color: var(--bg-primary);
 }
 .checkbox-ui__indicator {
-  color: white;
+  display: flex;
+  align-items: center;
+}
+.checkbox-ui span {
+  display: flex;
+  margin-inline: auto;
+}
+.checkbox-ui svg {
+  fill: none;
 }
 
 .range-slider-ui {
@@ -529,7 +538,7 @@ svg.lucide {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  height: 30dvh;
+  height: 100dvh;
   align-items: center;
   justify-content: center;
   font-size: 2.5rem;
@@ -624,18 +633,15 @@ svg.lucide {
 }
 
 .checkbox-ui {
-  height: 1.25rem;
-  width: 1.25rem;
-  border: 1px solid #d4d4d4;
   border-radius: 0.3rem;
   transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
 }
 .checkbox-ui[data-state=checked] {
-  background-color: #3b82f6;
-  border-color: #3b82f6;
+  background-color: var(--accent-primary);
+  border-color: var(--accent-primary);
 }
 .checkbox-ui:focus-visible {
-  outline: 2px solid #60a5fa;
+  outline: 2px solid var(--accent-primary-hover);
   outline-offset: 2px;
 }
 .checkbox-ui:disabled {
@@ -663,6 +669,11 @@ svg.lucide {
   align-items: center;
   gap: 0.75rem;
   cursor: pointer;
+}
+.checkbox-group-ui__checkbox {
+  height: 1.25rem;
+  width: 1.25rem;
+  border: 1px solid var(--ring);
 }
 .checkbox-group-ui__label {
   font-size: 0.875rem;

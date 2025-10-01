@@ -12,14 +12,14 @@ import {
 import type {
 	CheckboxOptionKey,
 	CheckboxValues
-} from '@/shared/components/shared/checkbox.types'
+} from '@/shared/components/shared/types'
 import { useCopyToClipboard } from '@/shared/hooks'
 
 const initialCheckboxValues: CheckboxValues = {
 	uppercase: true,
 	lowercase: true,
 	numbers: true,
-	special: true,
+	special: false,
 	no_similar: false,
 	spaces: false
 }

@@ -1,10 +1,10 @@
-import React from 'react'
+import cn from 'clsx'
 
 import { Checkbox } from '@/shared/components'
 import type {
 	CheckboxOptionKey,
 	CheckboxValues
-} from '@/shared/components/shared/checkbox.types'
+} from '@/shared/components/shared/types'
 
 const options = [
 	{ label: 'Заглавные буквы (A-Z)', value: 'uppercase' },
@@ -16,27 +16,20 @@ const options = [
 ] as const
 
 interface CheckboxGroupProps {
-	values?: CheckboxValues
+	values: CheckboxValues
 	onChange: (key: CheckboxOptionKey, checked: boolean) => void
 }
 
-const defaultValues: CheckboxValues = {
-	uppercase: false,
-	lowercase: false,
-	numbers: false,
-	special: false,
-	no_similar: false,
-	spaces: false
-}
-
-export function CheckboxGroup({
-	values = defaultValues,
-	onChange
-}: CheckboxGroupProps) {
+export function CheckboxGroup({ values, onChange }: CheckboxGroupProps) {
 	return (
 		<div className='checkbox-group-ui'>
 			{options.map(opt => (
-				<label key={opt.value} className='checkbox-group-ui__item'>
+				<label
+					key={opt.value}
+					className={cn('checkbox-group-ui__item', {
+						'checkbox-group-ui__item--checked': values[opt.value]
+					})}
+				>
 					<Checkbox
 						checked={values[opt.value]}
 						onCheckedChange={checked =>
