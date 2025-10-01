@@ -9,11 +9,8 @@ import {
 	PasswordInput,
 	PasswordProgressbar
 } from '@/shared/components'
-import type {
-	CheckboxOptionKey,
-	CheckboxValues
-} from '@/shared/components/shared/types'
 import { useCopyToClipboard } from '@/shared/hooks'
+import type { CheckboxOptionKey, CheckboxValues } from '@/shared/types'
 
 const initialCheckboxValues: CheckboxValues = {
 	uppercase: true,

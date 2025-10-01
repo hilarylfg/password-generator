@@ -1,10 +1,6 @@
-import cn from 'clsx'
-
 import { Checkbox } from '@/shared/components'
-import type {
-	CheckboxOptionKey,
-	CheckboxValues
-} from '@/shared/components/shared/types'
+import type { CheckboxOptionKey, CheckboxValues } from '@/shared/types'
+import { cn } from '@/shared/utils'
 
 const options = [
 	{ label: 'Заглавные буквы (A-Z)', value: 'uppercase' },

@@ -457,7 +457,7 @@ svg.lucide {
   width: 1.5rem;
   background-color: var(--ring);
   border: none;
-  border-radius: 0.5rem;
+  border-radius: 0.3rem;
   display: flex;
   padding: 0;
 }
@@ -632,28 +632,6 @@ svg.lucide {
   transform: scale(0.95) translateX(28px);
 }
 
-.checkbox-ui {
-  border-radius: 0.3rem;
-  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
-}
-.checkbox-ui[data-state=checked] {
-  background-color: var(--accent-primary);
-  border-color: var(--accent-primary);
-}
-.checkbox-ui:focus-visible {
-  outline: 2px solid var(--accent-primary-hover);
-  outline-offset: 2px;
-}
-.checkbox-ui:disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
-}
-.checkbox-ui__indicator {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .checkbox-group-ui {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -669,11 +647,6 @@ svg.lucide {
   align-items: center;
   gap: 0.75rem;
   cursor: pointer;
-}
-.checkbox-group-ui__checkbox {
-  height: 1.25rem;
-  width: 1.25rem;
-  border: 1px solid var(--ring);
 }
 .checkbox-group-ui__label {
   font-size: 0.875rem;
