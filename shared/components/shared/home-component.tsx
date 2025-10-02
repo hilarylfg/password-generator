@@ -7,7 +7,8 @@ import {
 	CheckboxGroup,
 	HomeTitle,
 	PasswordInput,
-	PasswordProgressbar
+	PasswordProgressbar,
+	RangePasswordSlider
 } from '@/shared/components'
 import { useCopyToClipboard } from '@/shared/hooks'
 import type { CheckboxOptionKey, CheckboxValues } from '@/shared/types'
@@ -18,7 +19,8 @@ const initialCheckboxValues: CheckboxValues = {
 	numbers: true,
 	special: false,
 	no_similar: false,
-	spaces: false
+	spaces: false,
+	length: 16
 }
 
 export function HomeComponent() {
@@ -43,8 +45,17 @@ export function HomeComponent() {
 				values={checkboxOptions}
 				onChange={handleCheckboxChange}
 			/>
-			<PasswordProgressbar />
+			<RangePasswordSlider
+				length={checkboxOptions.length}
+				onChange={(newLength: number) =>
+					setCheckboxOptions({
+						...checkboxOptions,
+						length: newLength
+					})
+				}
+			/>
 			<PasswordInput value={inputValue} onChange={handleInputChange} />
+			<PasswordProgressbar />
 			<ButtonsGroup onClick={() => copyToClipboard(inputValue)} />
 		</div>
 	)
