@@ -13,11 +13,11 @@ export function RangePasswordSlider({
 		<>
 			<div className='password-length-slider'>
 				<label className='password-length-slider__label'>
-					Длинна пароля: {length}
+					Длина пароля: {length}
 				</label>
 				<RangeSlider
 					min={6}
-					max={40}
+					max={32}
 					step={1}
 					value={[length]}
 					onValueChange={values => onChange(values[0])}

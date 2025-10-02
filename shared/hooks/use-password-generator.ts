@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react'
+import { toast } from 'sonner'
 
 import { CheckboxValues } from '@/shared/types'
 
@@ -14,8 +15,6 @@ const UPPERCASE = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 const NUMBERS = '0123456789'
 const SPECIAL_CHARS = '!@#$%^&*()_+-=[]{}|;:,.<>?'
 const SPACE = ' '
-
-const DEFAULT_LENGTH = 16
 
 function cryptoRandomInt(max: number): number {
 	if (max <= 0) throw new Error('Invalid max for random int')
@@ -46,7 +45,7 @@ export const usePasswordGenerator = (): UsePasswordGeneratorReturn => {
 	const [isGenerating, setIsGenerating] = useState<boolean>(false)
 
 	const generatePassword = useCallback(
-		(options: CheckboxValues, length: number = DEFAULT_LENGTH) => {
+		(options: CheckboxValues, length: number = options.length) => {
 			setIsGenerating(true)
 			setError(null)
 
@@ -70,7 +69,11 @@ export const usePasswordGenerator = (): UsePasswordGeneratorReturn => {
 
 				const enabledCategories = categories.filter(c => c.enabled)
 				if (enabledCategories.length === 0) {
-					throw new Error('Выберите хотя бы один тип символов')
+					toast.warning('Выберите хотя бы один тип символов.', {
+						duration: 3000,
+						position: 'bottom-right'
+					})
+					throw new Error('Выберите хотя бы один тип символов.')
 				}
 
 				let pool = ''
@@ -80,12 +83,26 @@ export const usePasswordGenerator = (): UsePasswordGeneratorReturn => {
 				const uniquePool = uniquePoolSet.join('')
 
 				if (no_similar && length > uniquePool.length) {
+					toast.warning(
+						`Недостаточно уникальных символов для длины ${length}. Уменьшите длину или включите больше категорий.`,
+						{
+							duration: 3000,
+							position: 'bottom-right'
+						}
+					)
 					throw new Error(
 						`Недостаточно уникальных символов для длины ${length}. Уменьшите длину или включите больше категорий.`
 					)
 				}
 
 				if (length < enabledCategories.length) {
+					toast.warning(
+						`Длина пароля (${length}) меньше числа выбранных категорий (${enabledCategories.length}). Увеличьте длину.`,
+						{
+							duration: 3000,
+							position: 'bottom-right'
+						}
+					)
 					throw new Error(
 						`Длина пароля (${length}) меньше числа выбранных категорий (${enabledCategories.length}). Увеличьте длину.`
 					)
@@ -103,6 +120,13 @@ export const usePasswordGenerator = (): UsePasswordGeneratorReturn => {
 							char = pickRandomChar(cat.chars)
 							attempts++
 							if (attempts > maxAttempts) {
+								toast.error(
+									`Не удалось подобрать уникальные символы из выбранных категорий. Измените настройки.`,
+									{
+										duration: 3000,
+										position: 'bottom-right'
+									}
+								)
 								throw new Error(
 									'Не удалось подобрать уникальные символы из выбранных категорий. Измените настройки.'
 								)
@@ -118,6 +142,14 @@ export const usePasswordGenerator = (): UsePasswordGeneratorReturn => {
 					shuffleInPlace(available)
 					const need = length - result.length
 					if (available.length < need) {
+						toast.warning(
+							'Недостаточно уникальных символов для генерации пароля. Уменьшите длину или' +
+								' включите больше категорий.',
+							{
+								duration: 3000,
+								position: 'bottom-right'
+							}
+						)
 						throw new Error(
 							'Недостаточно уникальных символов для генерации пароля. Уменьшите длину или включите больше категорий.'
 						)

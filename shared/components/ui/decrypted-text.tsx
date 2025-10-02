@@ -6,7 +6,8 @@ import { useEffect, useRef, useState } from 'react'
 const styles = {
 	wrapper: {
 		display: 'inline-block',
-		whiteSpace: 'pre-wrap'
+		whiteSpace: 'pre-wrap',
+		textAlign: 'center' as 'center'
 	},
 	srOnly: {
 		position: 'absolute' as 'absolute',

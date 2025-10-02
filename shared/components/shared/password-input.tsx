@@ -1,7 +1,3 @@
-'use client'
-
-import { ChangeEvent } from 'react'
-
 import { DecryptedText } from '@/shared/components'
 
 interface Props {
@@ -10,6 +6,13 @@ interface Props {
 
 export function PasswordInput({ value }: Props) {
 	return (
-		<DecryptedText text={value} animateOn='view' revealDirection='center' />
+		<div className='password-input__wrapper'>
+			<DecryptedText
+				className='password-input'
+				text={value}
+				animateOn='view'
+				revealDirection='center'
+			/>
+		</div>
 	)
 }

@@ -1,12 +1,8 @@
 .toaster {
-    --normal-bg: var(--bg-primary);
-    --normal-text: var(--text-primary);
-    --normal-border: var(--border-light);
-
     [data-sonner-toast] {
-        background: var(--normal-bg);
-        color: var(--normal-text);
-        border: 1px solid var(--normal-border);
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+        border: 1px solid var(--border-light);
         border-radius: 0.5rem;
         padding: 1rem;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
