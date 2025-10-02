@@ -373,6 +373,7 @@ svg.lucide {
 }
 
 .toaster [data-sonner-toast] {
+  user-select: none;
   background: var(--bg-secondary);
   color: var(--text-primary);
   border: 1px solid var(--border-light);
@@ -655,6 +656,7 @@ svg.lucide {
   cursor: pointer;
 }
 .checkbox-group-ui__label {
+  user-select: none;
   font-size: 0.875rem;
   font-weight: 500;
 }
@@ -746,6 +748,7 @@ svg.lucide {
 }
 
 .progressbar-text {
+  user-select: none;
   margin-top: 0.4rem;
   text-align: center;
   font-size: 1rem;

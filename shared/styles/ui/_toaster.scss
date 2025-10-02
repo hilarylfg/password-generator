@@ -1,5 +1,6 @@
 .toaster {
     [data-sonner-toast] {
+        user-select: none;
         background: var(--bg-secondary);
         color: var(--text-primary);
         border: 1px solid var(--border-light);

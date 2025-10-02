@@ -1,26 +1,23 @@
 import { useCallback, useState } from 'react'
 import { toast } from 'sonner'
 
-import { CheckboxValues } from '@/shared/types'
+import type { CheckboxValues } from '@/shared/types'
 
-interface UsePasswordGeneratorReturn {
-	password: string
-	error: string | null
-	generatePassword: (options: CheckboxValues, length?: number) => void
-	isGenerating: boolean
+const CHAR_SETS = {
+	LOWERCASE: 'abcdefghijklmnopqrstuvwxyz',
+	UPPERCASE: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+	NUMBERS: '0123456789',
+	SPECIAL: '!@#$%^&*()_+-=[]{}|;:,.<>?',
+	SPACE: ' '
 }
 
-const LOWERCASE = 'abcdefghijklmnopqrstuvwxyz'
-const UPPERCASE = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-const NUMBERS = '0123456789'
-const SPECIAL_CHARS = '!@#$%^&*()_+-=[]{}|;:,.<>?'
-const SPACE = ' '
-
 function cryptoRandomInt(max: number): number {
-	if (max <= 0) throw new Error('Invalid max for random int')
+	if (max <= 0) {
+		throw new Error('Максимальное значение должно быть больше 0')
+	}
 	const array = new Uint32Array(1)
-	const limit = Math.floor(0x100000000 / max) * max
-	let value: number
+	const limit = 0x100000000 - (0x100000000 % max)
+	let value
 	do {
 		crypto.getRandomValues(array)
 		value = array[0]
@@ -29,6 +26,9 @@ function cryptoRandomInt(max: number): number {
 }
 
 function pickRandomChar(chars: string): string {
+	if (!chars) {
+		return ''
+	}
 	return chars[cryptoRandomInt(chars.length)]
 }
 
@@ -39,148 +39,106 @@ function shuffleInPlace<T>(arr: T[]): void {
 	}
 }
 
+interface UsePasswordGeneratorReturn {
+	password: string
+	error: string | null
+	generatePassword: (options: CheckboxValues) => void
+	isGenerating: boolean
+}
+
 export const usePasswordGenerator = (): UsePasswordGeneratorReturn => {
-	const [password, setPassword] = useState<string>('')
+	const [password, setPassword] = useState('')
 	const [error, setError] = useState<string | null>(null)
-	const [isGenerating, setIsGenerating] = useState<boolean>(false)
+	const [isGenerating, setIsGenerating] = useState(false)
 
-	const generatePassword = useCallback(
-		(options: CheckboxValues, length: number = options.length) => {
-			setIsGenerating(true)
-			setError(null)
+	const generatePassword = useCallback((options: CheckboxValues) => {
+		setIsGenerating(true)
+		setError(null)
 
-			try {
-				const {
-					uppercase,
-					lowercase,
-					numbers,
-					special,
-					spaces,
-					no_similar
-				} = options
+		try {
+			const { length, no_similar } = options
 
-				const categories: Array<{ enabled: boolean; chars: string }> = [
-					{ enabled: lowercase, chars: LOWERCASE },
-					{ enabled: uppercase, chars: UPPERCASE },
-					{ enabled: numbers, chars: NUMBERS },
-					{ enabled: special, chars: SPECIAL_CHARS },
-					{ enabled: spaces, chars: SPACE }
-				]
+			const enabledCategories = [
+				options.lowercase && { chars: CHAR_SETS.LOWERCASE },
+				options.uppercase && { chars: CHAR_SETS.UPPERCASE },
+				options.numbers && { chars: CHAR_SETS.NUMBERS },
+				options.special && { chars: CHAR_SETS.SPECIAL },
+				options.spaces && { chars: CHAR_SETS.SPACE }
+			].filter(Boolean) as { chars: string }[]
 
-				const enabledCategories = categories.filter(c => c.enabled)
-				if (enabledCategories.length === 0) {
-					toast.warning('Выберите хотя бы один тип символов.', {
-						duration: 3000,
-						position: 'bottom-right'
-					})
-					throw new Error('Выберите хотя бы один тип символов.')
-				}
+			const characterPool = enabledCategories.map(c => c.chars).join('')
+			const uniqueChars = [...new Set(characterPool)]
 
-				let pool = ''
-				for (const c of enabledCategories) pool += c.chars
-
-				const uniquePoolSet = Array.from(new Set(pool.split('')))
-				const uniquePool = uniquePoolSet.join('')
-
-				if (no_similar && length > uniquePool.length) {
-					toast.warning(
-						`Недостаточно уникальных символов для длины ${length}. Уменьшите длину или включите больше категорий.`,
-						{
-							duration: 3000,
-							position: 'bottom-right'
-						}
-					)
-					throw new Error(
-						`Недостаточно уникальных символов для длины ${length}. Уменьшите длину или включите больше категорий.`
-					)
-				}
-
-				if (length < enabledCategories.length) {
-					toast.warning(
-						`Длина пароля (${length}) меньше числа выбранных категорий (${enabledCategories.length}). Увеличьте длину.`,
-						{
-							duration: 3000,
-							position: 'bottom-right'
-						}
-					)
-					throw new Error(
-						`Длина пароля (${length}) меньше числа выбранных категорий (${enabledCategories.length}). Увеличьте длину.`
-					)
-				}
-
-				const result: string[] = []
-				const used = new Set<string>()
-
-				for (const cat of enabledCategories) {
-					let char = pickRandomChar(cat.chars)
-					if (no_similar) {
-						let attempts = 0
-						const maxAttempts = 256
-						while (used.has(char)) {
-							char = pickRandomChar(cat.chars)
-							attempts++
-							if (attempts > maxAttempts) {
-								toast.error(
-									`Не удалось подобрать уникальные символы из выбранных категорий. Измените настройки.`,
-									{
-										duration: 3000,
-										position: 'bottom-right'
-									}
-								)
-								throw new Error(
-									'Не удалось подобрать уникальные символы из выбранных категорий. Измените настройки.'
-								)
-							}
-						}
-						used.add(char)
-					}
-					result.push(char)
-				}
-
-				if (no_similar) {
-					const available = uniquePoolSet.filter(ch => !used.has(ch))
-					shuffleInPlace(available)
-					const need = length - result.length
-					if (available.length < need) {
-						toast.warning(
-							'Недостаточно уникальных символов для генерации пароля. Уменьшите длину или' +
-								' включите больше категорий.',
-							{
-								duration: 3000,
-								position: 'bottom-right'
-							}
-						)
-						throw new Error(
-							'Недостаточно уникальных символов для генерации пароля. Уменьшите длину или включите больше категорий.'
-						)
-					}
-					result.push(...available.slice(0, need))
-				} else {
-					const need = length - result.length
-					for (let i = 0; i < need; i++) {
-						result.push(pickRandomChar(uniquePool))
-					}
-				}
-
-				shuffleInPlace(result)
-
-				setPassword(result.join(''))
-			} catch (err) {
-				setError(
-					err instanceof Error ? err.message : 'Произошла ошибка'
-				)
-				setPassword('')
-			} finally {
-				setIsGenerating(false)
+			if (enabledCategories.length === 0) {
+				throw new Error('Выберите хотя бы один тип символов.')
 			}
-		},
-		[]
-	)
+			if (length < enabledCategories.length) {
+				throw new Error(
+					`Длина пароля (${length}) слишком мала для выбранных категорий.`
+				)
+			}
+			if (no_similar && length > uniqueChars.length) {
+				throw new Error(
+					`Недостаточно уникальных символов для длины ${length}.`
+				)
+			}
 
-	return {
-		password,
-		error,
-		generatePassword,
-		isGenerating
-	}
+			const passwordChars: string[] = []
+			const usedChars = new Set<string>()
+
+			for (const category of enabledCategories) {
+				let char: string
+				if (no_similar) {
+					const available = [...new Set(category.chars)].filter(
+						c => !usedChars.has(c)
+					)
+					if (available.length === 0) {
+						throw new Error(
+							'Не удалось подобрать уникальные символы. Измените настройки.'
+						)
+					}
+					char = pickRandomChar(available.join(''))
+					usedChars.add(char)
+				} else {
+					char = pickRandomChar(category.chars)
+				}
+				passwordChars.push(char)
+			}
+
+			const remainingLength = length - passwordChars.length
+			if (remainingLength > 0) {
+				if (no_similar) {
+					const remainingPool = uniqueChars.filter(
+						char => !usedChars.has(char)
+					)
+					shuffleInPlace(remainingPool)
+					passwordChars.push(
+						...remainingPool.slice(0, remainingLength)
+					)
+				} else {
+					for (let i = 0; i < remainingLength; i++) {
+						passwordChars.push(pickRandomChar(characterPool))
+					}
+				}
+			}
+
+			shuffleInPlace(passwordChars)
+			setPassword(passwordChars.join(''))
+		} catch (err) {
+			const message =
+				err instanceof Error
+					? err.message
+					: 'Произошла неизвестная ошибка'
+			setError(message)
+			setPassword('')
+			toast.error(message, {
+				duration: 3000,
+				position: 'bottom-right'
+			})
+		} finally {
+			setIsGenerating(false)
+		}
+	}, [])
+
+	return { password, error, generatePassword, isGenerating }
 }
