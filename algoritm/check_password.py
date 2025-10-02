@@ -1,6 +1,7 @@
 ﻿import re
 import string
 
+
 def check_password_strength(password: str) -> dict:
     """Проверка надежности пароля."""
 

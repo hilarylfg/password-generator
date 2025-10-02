@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Nunito } from 'next/font/google'
 
-import { ThemeProvider, ThemeSwitch } from '@/shared/components'
+import { ThemeProvider, ThemeSwitch, Toaster } from '@/shared/components'
 import '@/shared/styles/main.css'
 
 const nunito = Nunito({
@@ -30,6 +30,7 @@ export default function RootLayout({
 				>
 					<ThemeSwitch />
 					{children}
+					<Toaster position='top-center' />
 				</ThemeProvider>
 			</body>
 		</html>

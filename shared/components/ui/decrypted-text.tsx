@@ -6,7 +6,8 @@ import { useEffect, useRef, useState } from 'react'
 const styles = {
 	wrapper: {
 		display: 'inline-block',
-		whiteSpace: 'pre-wrap'
+		whiteSpace: 'pre-wrap',
+		textAlign: 'center' as 'center'
 	},
 	srOnly: {
 		position: 'absolute' as 'absolute',
@@ -16,7 +17,8 @@ const styles = {
 		margin: '-1px',
 		overflow: 'hidden',
 		clip: 'rect(0,0,0,0)',
-		border: 0
+		border: 0,
+		userSelect: 'none' as 'none'
 	}
 }
 

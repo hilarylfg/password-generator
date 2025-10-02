@@ -1,4 +1,10 @@
+@use '../helpers/index' as *;
+
 .buttons-group {
   display: flex;
   gap: 10px;
+
+  @include mobile {
+    flex-direction: column;
+  }
 }

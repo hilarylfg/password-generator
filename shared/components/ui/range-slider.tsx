@@ -22,7 +22,6 @@ export const RangeSlider = React.forwardRef(
 			min,
 			max,
 			step,
-			formatLabel,
 			value,
 			onValueChange,
 			...props
@@ -59,16 +58,6 @@ export const RangeSlider = React.forwardRef(
 				</SliderPrimitive.Track>
 				{localValues.map((value, index) => (
 					<React.Fragment key={index}>
-						<div
-							className='range-slider-ui-value'
-							style={{
-								left: `calc(${((value - min) / (max - min)) * 93}% + 0px)`
-							}}
-						>
-							<span>
-								{formatLabel ? formatLabel(value) : value}
-							</span>
-						</div>
 						<SliderPrimitive.Thumb className='range-slider-ui-thumb' />
 					</React.Fragment>
 				))}

@@ -2,11 +2,15 @@
 
 .checkbox-group-ui {
   display: grid;
-  grid-template-columns: repeat(2, auto);
+  grid-template-columns: repeat(3, auto);
   gap: 1rem 1.5rem;
 
-  @media (min-width: 768px) {
-    grid-template-columns: repeat(3, auto);
+  @include tablet {
+    grid-template-columns: repeat(2, auto);
+  }
+
+  @include mobile {
+    grid-template-columns: repeat(1, auto);
   }
 
   &__item {
@@ -17,6 +21,7 @@
   }
 
   &__label {
+    user-select: none;
     font-size: 0.875rem;
     font-weight: 500;
   }

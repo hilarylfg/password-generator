@@ -1,3 +1,17 @@
+@use '../helpers/index' as *;
+
 .home-title {
+  display: flex;
+  align-items: center;
   user-select: none;
+  font-size: 2rem;
+  min-height: 6rem;
+  max-width: 42rem;
+  text-align: center;
+
+  @include mobile {
+    max-width: calc(100vw - 4rem);
+    font-size: 1.5rem;
+    min-height: 7rem;
+  }
 }

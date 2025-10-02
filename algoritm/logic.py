@@ -18,7 +18,7 @@ def create_password(
     characters = ''
     if length > 32:
         raise LargeLenghtError()
-    elif length <6:
+    elif length < 6:
         raise SmallLenghtError()
     else:
         if use_lowercase:
@@ -36,6 +36,7 @@ def create_password(
     else:
         password = ''.join(random.choice(characters) for _ in range(length))
     return password
+
 
 if __name__ == "__main__":
     print("Generated Password:", create_password(15))
