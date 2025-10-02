@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Генератор паролей
 
-## Getting Started
+Простой и минималистичный генератор паролей, созданный для быстрого и безопасного создания сложных паролей.
 
-First, run the development server:
+<img width="1068" height="676" alt="image" src="https://github.com/user-attachments/assets/1f436611-fb97-4189-b192-db39c944c267" />
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ Особенности
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Гибкая настройка:** Управляйте составом пароля с помощью удобных опций:
+  - ✅ Использовать заглавные буквы (A-Z)
+  - ✅ Использовать строчные буквы (a-z)
+  - ✅ Включать цифры (0-9)
+  - ✅ Добавлять специальные символы (!@#$%^&*)
+  - ✅ Исключать похожие символы (например, l, 1, I, o, 0, O)
+  - ✅ Вставлять пробелы
+- **Индикатор надежности:** Визуальная оценка сложности сгенерированного пароля.
+- **Настраиваемая длина:** Выбирайте длину пароля до 32 символов.
+- **Простота в использовании:** Две основные кнопки — "Сгенерировать" и "Копировать".
+- **Смена темы:** Переключайтесь между светлой и тёмной темами для комфортной работы в любое время суток.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Начало работы
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Чтобы запустить проект локально, выполните следующие шаги:
 
-## Learn More
+1. **Клонируйте репозиторий:**
+   ```bash
+   git clone https://github.com/hilarylfg/password-generator.git
+   cd password-generator
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. **Установите зависимости:**
+   Для установки необходимых пакетов используйте `bun`.
+   ```bash
+   bun install
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. **Запустите сервер для разработки:**
+   ```bash
+   bun next dev
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4. **Откройте приложение в браузере:**
+   Перейдите по адресу [http://localhost:3000](http://localhost:3000), чтобы увидеть результат.
 
-## Deploy on Vercel
+## 👨‍💻 Команда
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Над проектом работали:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Маркин Сергей Иванович
+- Поляков Николай Михайлович
+- Умаров Гаджимурад Залимханович
+- Ниязов Марат Алимуратович
+- Изтелеуев Даниэль Русланович
+
+---
+Этот проект создан с использованием современных веб-технологий, чтобы обеспечить высокую производительность и удобство использования.
+Все пожелания и идеи приветствуются — создай Issue или напишите нам.
