@@ -7,7 +7,8 @@ import {
 	CheckboxGroup,
 	HomeTitle,
 	PasswordInput,
-	PasswordProgressbar
+	PasswordProgressbar,
+	RangePasswordSlider
 } from '@/shared/components'
 import { useCopyToClipboard } from '@/shared/hooks'
 import { usePasswordGenerator } from '@/shared/hooks/use-password-generator'
@@ -19,12 +20,12 @@ const initialCheckboxValues: CheckboxValues = {
 	numbers: true,
 	special: false,
 	no_similar: false,
-	spaces: false
+	spaces: false,
+	length: 16
 }
 
 export function HomeComponent() {
-	const { inputValue, setInputValue, handleInputChange, copyToClipboard } =
-		useCopyToClipboard()
+	const { inputValue, setInputValue, copyToClipboard } = useCopyToClipboard()
 
 	const [checkboxOptions, setCheckboxOptions] = useState<CheckboxValues>(
 		initialCheckboxValues
@@ -50,8 +51,17 @@ export function HomeComponent() {
 				values={checkboxOptions}
 				onChange={handleCheckboxChange}
 			/>
-			<PasswordProgressbar />
+			<RangePasswordSlider
+				length={checkboxOptions.length}
+				onChange={(newLength: number) =>
+					setCheckboxOptions({
+						...checkboxOptions,
+						length: newLength
+					})
+				}
+			/>
 			<PasswordInput value={inputValue} />
+			<PasswordProgressbar />
 			<ButtonsGroup
 				onCopy={() => copyToClipboard(inputValue)}
 				onGenerate={() => generatePassword(checkboxOptions)}

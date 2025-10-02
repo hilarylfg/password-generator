@@ -11,7 +11,7 @@ const nunito = Nunito({
 })
 
 export const metadata: Metadata = {
-	title: 'orbita-taxi'
+	title: 'Генератор паролей'
 }
 
 export default function RootLayout({
@@ -19,6 +19,9 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
 	return (
 		<html lang='en' suppressHydrationWarning>
+			<head>
+				<link rel='icon' type='image/svg+xml' href='/img/favicon.svg' />
+			</head>
 			<body className={nunito.variable}>
 				<ThemeProvider
 					defaultTheme='system'
