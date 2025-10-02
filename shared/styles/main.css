@@ -664,7 +664,13 @@ svg.lucide {
 }
 
 .home-title {
+  display: flex;
+  align-items: center;
   user-select: none;
+  font-size: 3rem;
+  min-height: 9rem;
+  max-width: 56rem;
+  text-align: center;
 }
 
 /*# sourceMappingURL=main.css.map */
