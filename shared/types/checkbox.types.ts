@@ -6,4 +6,12 @@ export type CheckboxOptionKey =
 	| 'no_similar'
 	| 'spaces'
 
-export type CheckboxValues = Record<CheckboxOptionKey, boolean>
+export interface CheckboxValues {
+	uppercase: boolean
+	lowercase: boolean
+	numbers: boolean
+	special: boolean
+	no_similar: boolean
+	spaces: boolean
+	length: number
+}

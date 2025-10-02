@@ -667,4 +667,9 @@ svg.lucide {
   user-select: none;
 }
 
+.password-length-slider__label {
+  user-select: none;
+  font-size: 35px;
+}
+
 /*# sourceMappingURL=main.css.map */
